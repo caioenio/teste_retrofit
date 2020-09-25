@@ -11,17 +11,19 @@
         android:id="@+id/btnSignup"
         android:layout_width="118dp"
         android:layout_height="52dp"
-        android:layout_marginStart="137dp"
-        android:layout_marginLeft="137dp"
-        android:layout_marginTop="293dp"
-        android:layout_marginEnd="159dp"
-        android:layout_marginRight="159dp"
-        android:layout_marginBottom="390dp"
+        android:layout_marginStart="268dp"
+        android:layout_marginLeft="268dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="663dp"
         android:background="#faf2f2"
         android:text="Cadastre-se"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
