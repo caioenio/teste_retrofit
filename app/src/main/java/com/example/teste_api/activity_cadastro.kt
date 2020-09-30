@@ -22,8 +22,6 @@ class activity_cadastro : AppCompatActivity() {
 
         BtnCadastrar.setOnClickListener(){
             this.insert {  }
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
         }
     }
 
@@ -32,9 +30,21 @@ class activity_cadastro : AppCompatActivity() {
         val mail: String = email.text.toString();
         val client = Client(nome = name, email = mail)
 
+        if (TextUtils.isEmpty(name)){
+            nome.error = "Por favor informe o nome";
+            return;
+        }
+
+        if (TextUtils.isEmpty(mail)){
+            email.error = "Por favor informe o email";
+            return;
+        }
+
         ClientWeb().insert(client, {
             created(it)
             Toast.makeText(this, "Cadastro realizado com sucesso", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }, {
             Toast.makeText(this, "Falha ao realizar cadastro", Toast.LENGTH_LONG).show()
         })
