@@ -6,10 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit.client.ClientWeb
 import retrofit.model.Client
@@ -22,8 +19,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var listView = findViewById<ListView>(R.id.listView)
-        listView.adapter = CustomAdapter(this)
+        ClientWeb().list({
+            clients.addAll(it)
+            configureList()
+            Toast.makeText(this, "Trouxe", Toast.LENGTH_LONG).show()
+        }, {
+            Toast.makeText(this, "Falha ao buscar notas", Toast.LENGTH_LONG).show()
+        })
 
         btnCadastrar.setOnClickListener{
             val intent = Intent(this, activity_cadastro::class.java)
@@ -31,40 +33,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun Listagem(){
-        val clients: MutableList<Client> = mutableListOf()
-        ClientWeb().list({
-            clients.addAll(it)
-            Toast.makeText(this, "Trouxe", Toast.LENGTH_LONG).show()
-        }, {
-            Toast.makeText(this, "Falha ao buscar notas", Toast.LENGTH_LONG).show()
-        })
-    }
-
-    private class CustomAdapter(context: Context): BaseAdapter() {
-
-        private val mContext: Context
-
-        init {
-            mContext = context
-        }
-
-        override fun getCount(): Int {
-            return 5
-        }
-
-        override fun getItemId(postition: Int): Long {
-            return postition.toLong()
-        }
-
-        override fun getItem(postition: Int): Any {
-            return "Test String"
-        }
-
-        override fun getView(postition: Int, convertView: View?, p2: ViewGroup?): View {
-            val textView = TextView(mContext)
-            textView.text = "testando"
-            return textView
-        }
+    private fun configureList() {
+        val listView = findViewById<ListView>(R.id.listView)
+        val adapter = ArrayAdapter<Client>(this, android.R.layout.simple_list_item_1, clients)
+        listView.adapter = adapter
     }
 }
